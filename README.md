@@ -117,6 +117,22 @@ python -m pip install --target /tmp/taglab-installed /tmp/taglab-wheels/*.whl
 bash examples/verify_wheel.sh /tmp/taglab-installed "$PWD"
 ```
 
+The installed-suite check builds a wheel, installs it in a clean environment,
+and runs the full Python suite away from the checkout. It copies the tests,
+examples and static browser files, but no library Python source. All eleven
+module origins must stay inside the installed environment before and after.
+A second section compares complete outputs from all nine module-CLI commands,
+including six fresh fits, stored and fresh audits, both inference families,
+possible and impossible events, both sampling modes, counts and byte-exact
+browser exports. These are same-runtime packaging checks, not an independent
+numerical reference or a cross-version bitwise guarantee. This package has no
+console-script entrypoint.
+
+```sh
+python examples/check_installed.py --section tests
+python examples/check_installed.py --section commands
+```
+
 The nine commands are `demo`, `train`, `audit`, `infer`, `export`,
 `normalization`, `condition`, `sample` and `count`. Eleven importable modules including the package root work outside
 the checkout. No NumPy, PyTorch, autodiff, model API or external dataset is used.
