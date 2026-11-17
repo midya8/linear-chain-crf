@@ -1,4 +1,4 @@
-# TagLab
+# Linear chain crf
 
 TagLab fits small linear-chain conditional random fields and lets you inspect
 every likelihood gradient, optimization step, sequence probability and message.
@@ -8,10 +8,10 @@ The methods are standard CRF theory, not new algorithms.
 
 ## Choose a calculation
 
-- [Training and sequence inference](https://midya8.github.io/taglab/): compare the fitted chain with its same-feature independent-label control.
-- [Allowed-label events](https://midya8.github.io/taglab/evidence.html): restrict labels at individual positions without refitting.
-- [Joint path sampling](https://midya8.github.io/taglab/evidence.html#sampling): follow backward conditionals rather than draw each node independently.
-- [Occurrence counts](https://midya8.github.io/taglab/counts.html): condition on a count that couples positions.
+- [Training and sequence inference](https://midya8.github.io/linear-chain-crf/): compare the fitted chain with its same-feature independent-label control.
+- [Allowed-label events](https://midya8.github.io/linear-chain-crf/evidence.html): restrict labels at individual positions without refitting.
+- [Joint path sampling](https://midya8.github.io/linear-chain-crf/evidence.html#sampling): follow backward conditionals rather than draw each node independently.
+- [Occurrence counts](https://midya8.github.io/linear-chain-crf/counts.html): condition on a count that couples positions.
 
 ## Fit a model and inspect the result
 
@@ -31,12 +31,12 @@ comparisons are descriptive, not causal isolation of transitions or a universal
 ranking. All six candidates remain visible, including lower-penalty chains
 that score differently on test but were not selected by it.
 
-[Interactive sequence and gradient inspector](https://midya8.github.io/taglab/) ·
+[Interactive sequence and gradient inspector](https://midya8.github.io/linear-chain-crf/) ·
 [Equations, sources and limits](METHOD.md)
 
 ## Condition on allowed labels
 
-[Live label-event inspector](https://midya8.github.io/taglab/evidence.html)
+[Live label-event inspector](https://midya8.github.io/linear-chain-crf/evidence.html)
 conditions the same fitted model on position-wise allowed label subsets. It
 computes the restricted partition, event log probability, conditional node/pair
 marginals, complete best path, entropy and all 39 derivatives of log P(event | x).
@@ -65,7 +65,7 @@ have a finite log probability and `probability_underflow=true`.
 
 ## Sample a joint path
 
-The [event inspector](https://midya8.github.io/taglab/evidence.html#sampling) traces backward-conditional path sampling under the same fixed model and allowed-label event. Start with the final node, then sample each predecessor given the already sampled successor. Every reverse conditional, supplied uniform, CDF bin and chosen label is visible. A paired independent-node draw uses the same uniforms but generally has a different full-path law, despite matching ideal node marginals. Exact pair total variation is computed separately from descriptive frequencies of 64 seeded draws.
+The [event inspector](https://midya8.github.io/linear-chain-crf/evidence.html#sampling) traces backward-conditional path sampling under the same fixed model and allowed-label event. Start with the final node, then sample each predecessor given the already sampled successor. Every reverse conditional, supplied uniform, CDF bin and chosen label is visible. A paired independent-node draw uses the same uniforms but generally has a different full-path law, despite matching ideal node marginals. Exact pair total variation is computed separately from descriptive frequencies of 64 seeded draws.
 
 ```python
 from taglab.sampling import prepare, draw, uniforms, sample
@@ -86,7 +86,7 @@ This is finite-precision fixed-model sampling, not a new inference method, train
 
 ## Condition on an occurrence count
 
-[Open the count inspector](https://midya8.github.io/taglab/counts.html). "Exactly r occurrences of A" cannot generally be written as a product of per-position label restrictions. A count-augmented dynamic program keeps the full original count distribution and reconstructs conditional node/pair probabilities, entropy, a complete best path and all 39 event derivatives. Prefix and strict-suffix log messages expose where the count lives. Counts mean positions, not runs or segments.
+[Open the count inspector](https://midya8.github.io/linear-chain-crf/counts.html). "Exactly r occurrences of A" cannot generally be written as a product of per-position label restrictions. A count-augmented dynamic program keeps the full original count distribution and reconstructs conditional node/pair probabilities, entropy, a complete best path and all 39 event derivatives. Prefix and strict-suffix log messages expose where the count lives. Counts mean positions, not runs or segments.
 
 ```python
 from taglab.counts import count_event, label_count
