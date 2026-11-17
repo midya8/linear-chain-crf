@@ -1,6 +1,6 @@
 # Linear chain crf
 
-TagLab fits small linear-chain conditional random fields and lets you inspect
+This implementation fits small linear-chain conditional random fields and lets you inspect
 every likelihood gradient, optimization step, sequence probability and message.
 It uses dependency-free Python 3.10+ and a separate scalar-JavaScript browser
 implementation. The models use original synthetic sequences, not real text.
